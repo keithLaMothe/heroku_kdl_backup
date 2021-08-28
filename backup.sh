@@ -45,7 +45,7 @@ printf "${Green}Start dump${EC}"
 mysqldump --no-tablespaces --set-gtid-purged=OFF -h $DB_BACKUP_HOST -p$DB_BACKUP_PASSWORD -u$DB_BACKUP_USER $DB_BACKUP_DATABASE | gzip > /tmp/"${FILENAME}".gz
 
 printf "${Green}Move dump to AWS${EC}"
-AWS_ACCESS_KEY_ID=$DB_BACKUP_AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$DB_BACKUP_AWS_SECRET_ACCESS_KEY /app/vendor/bin/aws --region $DB_BACKUP_AWS_DEFAULT_REGION s3 cp /tmp/"${FILENAME}".gz s3://$DB_BACKUP_S3_BUCKET_PATH/${FILENAME}".gz
+AWS_ACCESS_KEY_ID=$DB_BACKUP_AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$DB_BACKUP_AWS_SECRET_ACCESS_KEY /app/vendor/bin/aws --region $DB_BACKUP_AWS_DEFAULT_REGION s3 cp /tmp/"${FILENAME}".gz s3://"$DB_BACKUP_S3_BUCKET_PATH/${FILENAME}".gz
 
 # cleanup
 rm -rf /tmp/"${FILENAME}".gz
